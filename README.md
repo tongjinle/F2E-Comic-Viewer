@@ -1,8 +1,6 @@
-# The F2E Challenge Week3 - Admin
+# The F2E Challenge Week5 - Comic Viewer
 
-## Demo Site: https://runkids.github.io/f2e/week3/
+## Demo Site: https://runkids.github.io/f2e/week5/
 
 ## Tags
--   ### Vue.js
--   ### element UI
--   ### Scss
+-   ### CSS
