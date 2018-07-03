@@ -1,0 +1,41 @@
+@keyframes github{
+  0%{
+    transform: translateX(-1px);
+    color: #50ff44;
+  }
+  25%{
+    transform: translateX(0px);
+  }
+  50%{
+    transform: translateX(1px);
+  }
+  100%{
+    transform: translateX(0px);
+    color: #fff;
+  }
+}
+
+@keyframes new{
+  0%{
+    color: rgb(255, 0, 0);
+    text-shadow: 0 0 100px rgb(255, 0, 0);
+  }
+  100%{
+    color: #fff;
+  }
+}
+
+@keyframes silder {
+  3% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  27% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  30% {
+      opacity: 0;
+      filter: alpha(opacity=0);
+  }
+}
