@@ -49,7 +49,7 @@
 
     </section>
 
-    <ad-box></ad-box>
+    <sprites-ad-box/>
 
     <div class="chapter_menu">
       <div class="title">
@@ -65,15 +65,19 @@
       </div>
     </div>
 
+    <ad-box></ad-box>
+
   </div>
 </template>
 
 <script>
 import AdBox from '@/components/AdBox';
+import SpritesAdBox from '@/components/SpritesAdBox';
 
 export default {
   components: {
     AdBox,
+    SpritesAdBox,
   },
   data() {
     return {
@@ -87,8 +91,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../assets/style/mixin.scss';
-@import '../../../assets/style/color.scss';
+@import '../../../assets/style/main.scss';
 
 #home{
   @include size(100%,100%);
@@ -183,6 +186,7 @@ export default {
         line-height: 50px;
         padding-left: 24px;
         margin-top: 10px;
+        transition-duration: .4s;
 
         &:hover{
           background-color: $black_color;

@@ -36,7 +36,7 @@
       <a class="prev second" @click="showSlides(-1)">&#10094;</a>
       <div class="inner">
         <ul>
-          <li class="column" v-for="(img,index) in comicImages" :key="index">
+          <li class="column" v-for="(img,index) in comicImages" :key="index" :data-page="index">
             <img :src="require(`@/assets/images/${img}`)" @click="currentSlide(index+1)">
           </li>
         </ul>
@@ -117,9 +117,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../assets/style/mixin.scss';
-@import '../../../assets/style/color.scss';
-@import '../../../assets/style/keyframes.scss';
+@import '../../../assets/style/main.scss';
+
 .sun{
   background-color: rgba(185, 178, 178, 0.1);
 }
@@ -134,7 +133,11 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 40px auto;
-  // background-color: rgba(0, 0, 0, 0.1);
+
+  .el-input__inner {
+    border: 2px solid black;
+    border-radius: initial;
+  }
 
   .utils{
     @include size(100%,80px);
@@ -173,12 +176,24 @@ export default {
     .inner{
       max-width: 620px;
       overflow-x: scroll;
+      height: 150px;
       display: flex;
+      &::-webkit-scrollbar{
+        background-color: $white_color;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $black_color;
+        border: 2px solid #555555;
+      }
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 9px rgba(0,0,0,0.3);
+        background-color: $white_color;
+      }
       > ul{
-        display: flex;
+        display: inline-flex;
       }
       .column{
-        @include size(120px,80px);
+        @include size(100px,120px);
         opacity: 0.6;
         display: inline-block;
         > img {
@@ -192,13 +207,15 @@ export default {
         border: 4px solid $black_color;
         position: relative;
         &::before{
-          content: '';
-          display: block;
-          @include size(20px,10px);
+          content: attr(data-page);
+          @include size(20px,15px);
+          display: flex;
+          color: $white_color;
+          margin: 0 auto;
+          justify-content: center;
           position: absolute;
           left: 50%;
           right: 50%;
-          z-index: 1;
           transform: translateX(-50%);
           background-color: $black_color;
         }
@@ -244,8 +261,8 @@ export default {
   }
   .second{
     position: initial;
-    height: 50px;
-    line-height: 50px;
+    height: 100px;
+    line-height: 100px;
     background-color: rgba(0, 0, 0, 0.8);
   }
 }

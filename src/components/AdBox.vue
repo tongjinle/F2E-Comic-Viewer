@@ -1,6 +1,7 @@
 <template>
   <div id="dbox">
-    <img class="slideImgs" :src="require(`@/assets/images/${img}`)" v-for="img in adImages" :key="img">
+    <img class="slideImgs" v-for="img in adImages" :key="img"
+      :src="require(`@/assets/images/${img}`)">
   </div>
 </template>
 
@@ -24,9 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/style/mixin.scss';
-@import '../assets/style/color.scss';
-@import '../assets/style/keyframes.scss';
+@import '../assets/style/main.scss';
 
 #dbox{
   @include size(100%,120px);

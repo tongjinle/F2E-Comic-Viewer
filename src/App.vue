@@ -11,8 +11,7 @@ export default {
 </script>
 
 <style lang='scss'>
-  @import './assets/style/reset.css';
-  @import './assets/style/mixin.scss';
+  @import './assets/style/main.scss';
 
   html,body{
     @include size(100%,100%);

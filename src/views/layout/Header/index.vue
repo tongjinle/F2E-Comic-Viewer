@@ -16,9 +16,7 @@ export default {
 
 
 <style lang="scss">
-  @import '../../../assets/style/mixin.scss';
-  @import '../../../assets/style/color.scss';
-  @import '../../../assets/style/keyframes.scss';
+  @import '../../../assets/style/main.scss';
 
   #header{
     background-color: $black_color;

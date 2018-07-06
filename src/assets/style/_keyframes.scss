@@ -39,3 +39,8 @@
       filter: alpha(opacity=0);
   }
 }
+
+@keyframes sprites {
+  from { background-position-x: 0; }
+  to   { background-position-x: -620px * 3; }
+}
