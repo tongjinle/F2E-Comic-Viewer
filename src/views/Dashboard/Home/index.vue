@@ -156,7 +156,17 @@ export default {
         :last-child{
           @include size(300px,202px);
           margin-top: 8px;
-          overflow: scroll;
+          overflow-y: scroll;
+          &::-webkit-scrollbar{
+            background-color: $white_color;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: #5555556c;
+          }
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            background-color: $white_color;
+          }
         }
       }
 

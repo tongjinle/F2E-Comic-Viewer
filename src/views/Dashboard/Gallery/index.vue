@@ -77,7 +77,7 @@ export default {
       const slides = document.querySelectorAll('.slides');
       const column = document.querySelectorAll('.column');
       const inner = document.querySelector('.inner');
-      const width = document.querySelector('.inner>ul').clientWidth;
+      const traget = document.querySelector('.column.active');
 
       if (this.slideIndex > slides.length) {
         this.slideIndex = slides.length;
@@ -98,7 +98,12 @@ export default {
 
       slides[this.slideIndex - 1].style.display = 'block';
       column[this.slideIndex - 1].className += ' active';
-      inner.scrollTo((width / this.comicImages.length) * ((this.slideIndex) - (this.comicImages.length / 4)), 0);
+
+      inner.scrollLeft =
+        traget.offsetLeft - // 被選取得圖片左距
+        inner.offsetLeft - // 外層元素左距
+        inner.offsetWidth / 3 + // 外層元素寬度 1/3
+        traget.offsetWidth / 2; // 被選取得圖片寬度 1/2
     },
   },
 
