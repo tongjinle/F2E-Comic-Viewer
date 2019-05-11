@@ -1,12 +1,15 @@
+import data from "./data.json";
 export async function getComicList() {
-  return [
-    {
-      logo:
-        'https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/pacong/twitter/yami/084ac6c05e89d50c75e7b76034bce16f.jpg',
-    },
-    {
-      logo:
-        'https://mucheng2020.oss-cn-hangzhou.aliyuncs.com/pacong/twitter/%E6%B1%A1%E8%90%8C%E6%B1%A1%E8%90%8C%E7%9A%84%E8%90%8CGirls/2153a5ea0c3600a220b9ca399c3c7c65.jpg',
-    },
-  ];
+  return data.map(n => {
+    return {
+      logo: n.logo,
+      id: n.id
+    };
+  });
+}
+
+export async function getContent(id) {
+  let item = data.find(n => n.id === id);
+  console.log(data, item, id);
+  return item ? item.list || [] : [];
 }

@@ -2,51 +2,7 @@
   <div id="home">
     <section class="section">
       <div class="mainPic" v-for="(item, index) in list" :key="index">
-        <img :src="item.logo">
-      </div>
-      <div class="comicInfo">
-        <div class="bookName">MY HEXSCHOOL</div>
-
-        <div class="genres">
-          <span>Genres:</span>
-          <div>Fusce/vehicula/dolor</div>
-        </div>
-
-        <div class="author">
-          <span>Author:</span>
-          <div>Namae Shiranai</div>
-        </div>
-
-        <div class="status">
-          <span>Status:</span>
-          <div>Ongoing</div>
-        </div>
-
-        <div class="rate">
-          <span>Rate:</span>
-          <div>
-            <el-rate
-              v-model="comic.rate"
-              disabled
-              show-score
-              text-color="#ff9900"
-              score-template="{value}"
-            ></el-rate>
-          </div>
-        </div>
-
-        <div class="summary">
-          <div>Summary:</div>
-          <div>
-            If your banker breaks, you snap;
-            if your apothecary by mistake sends you
-            poison in your pills, you die.
-            Therefore, I say, I saw that this situation
-            of mine was the precise situation of
-            every mortal that has this Siamese connexion
-            with a plurality of other mortals.
-          </div>
-        </div>
+        <img :src="item.logo" @click="goto(item.id)">
       </div>
     </section>
   </div>
@@ -63,6 +19,13 @@ export default {
         rate: 4
       }
     };
+  },
+  methods: {
+    goto(id) {
+      console.log(id);
+      // console.log(this.$router);
+      this.$router.replace({ path: "/dashboard/gallery", query: { id } });
+    }
   },
   async mounted() {
     this.list = await utils.getComicList();
@@ -84,11 +47,14 @@ export default {
   .section {
     display: flex;
     margin: 40px auto;
-
+    justify-content: space-around;
+    width: 80vw;
     .mainPic {
       // @include size(20vw, 438px);
-      width: 20vw;
-      border: 4px solid $black_color;
+      width: 30vw;
+      // border: 4px solid $black_color;
+      margin-bottom: 1vh;
+      padding: 0 10px;
       > img {
         @include size(100%, 100%);
       }
@@ -211,6 +177,7 @@ export default {
     flex-direction: column;
 
     .mainPic {
+      width: 100% !important;
       // width: calc(414px - 80px) !important;
     }
   }
