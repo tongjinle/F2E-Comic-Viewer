@@ -1,8 +1,8 @@
 <template>
-  <div id='home'>
+  <div id="home">
     <section class="section">
-      <div class="mainPic">
-        <img :src="require('@/assets/images/comic_cover.png')">
+      <div class="mainPic" v-for="(item, index) in list" :key="index">
+        <img :src="item.logo">
       </div>
       <div class="comicInfo">
         <div class="bookName">MY HEXSCHOOL</div>
@@ -25,9 +25,13 @@
         <div class="rate">
           <span>Rate:</span>
           <div>
-            <el-rate v-model="comic.rate" disabled show-score
-              text-color="#ff9900" score-template="{value}">
-            </el-rate>
+            <el-rate
+              v-model="comic.rate"
+              disabled
+              show-score
+              text-color="#ff9900"
+              score-template="{value}"
+            ></el-rate>
           </div>
         </div>
 
@@ -37,147 +41,125 @@
             If your banker breaks, you snap;
             if your apothecary by mistake sends you
             poison in your pills, you die.
-
             Therefore, I say, I saw that this situation
             of mine was the precise situation of
             every mortal that has this Siamese connexion
             with a plurality of other mortals.
           </div>
         </div>
-
       </div>
-
     </section>
-
-    <sprites-ad-box/>
-
-    <div class="chapter_menu">
-      <div class="title">
-        All Chapters
-      </div>
-      <div class="chapters">
-        <router-link :to="{name:'gallery'}" tag="div" class="chapter">
-          <span>Chapter 1: The F2E Challenge Start!</span>
-        </router-link>
-        <router-link :to="{name:'gallery'}" tag="div" class="newChapter">
-          <span>Chapter 2: Todo List is Going Crazy!</span>
-        </router-link>
-      </div>
-    </div>
-
-    <ad-box></ad-box>
-
   </div>
 </template>
 
 <script>
-import AdBox from '@/components/AdBox';
-import SpritesAdBox from '@/components/SpritesAdBox';
-
+import * as utils from "@/utils/index";
 export default {
-  components: {
-    AdBox,
-    SpritesAdBox,
-  },
+  components: {},
   data() {
     return {
+      list: [],
       comic: {
-        rate: 4,
-      },
+        rate: 4
+      }
     };
   },
+  async mounted() {
+    this.list = await utils.getComicList();
+  }
 };
-
 </script>
 
 <style lang="scss">
-@import '../../../assets/style/main.scss';
+@import "../../../assets/style/main.scss";
 
-#home{
-  @include size(100%,100%);
+#home {
+  @include size(100%, 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
 
-  .section{
+  .section {
     display: flex;
     margin: 40px auto;
 
-    .mainPic{
-      @include size(292px,438px);
+    .mainPic {
+      // @include size(20vw, 438px);
+      width: 20vw;
       border: 4px solid $black_color;
-      > img{
-        @include size(100%,100%);
+      > img {
+        @include size(100%, 100%);
       }
     }
 
-    .comicInfo{
-      > *{
-        &:not(.bookName){
+    .comicInfo {
+      > * {
+        &:not(.bookName) {
           display: flex;
           margin-top: 15px;
           line-height: 24px;
           font-size: 16px;
-          > span{
-            @include size(52px,24px);
+          > span {
+            @include size(52px, 24px);
             text-align: left;
             padding-left: 20px;
             font-weight: bold;
           }
-          > div{
+          > div {
             text-align: left;
             padding-left: 20px;
           }
         }
       }
 
-      .bookName{
-        @include size(317px,52px);
+      .bookName {
+        @include size(317px, 52px);
         background-color: $black_color;
         color: $white_color;
         font-size: 36px;
         line-height: 52px; //文字上下置中
         text-align: center;
-        &::after,&::before{ // clearfix
+        &::after,
+        &::before {
+          // clearfix
           content: "";
           display: flex;
           clear: both;
         }
       }
 
-      .summary{
+      .summary {
         display: flex;
         flex-direction: column;
-        :first-child{
+        :first-child {
           font-weight: bold;
         }
-        :last-child{
-          @include size(300px,202px);
+        :last-child {
+          @include size(300px, 202px);
           margin-top: 8px;
           overflow-y: scroll;
-          &::-webkit-scrollbar{
+          &::-webkit-scrollbar {
             background-color: $white_color;
           }
           &::-webkit-scrollbar-thumb {
             background-color: #5555556c;
           }
           &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
             background-color: $white_color;
           }
         }
       }
-
     }
   }
 
-  .chapter_menu{
-    @include size(620px,100%);
+  .chapter_menu {
+    @include size(620px, 100%);
     margin-bottom: 40px;
     .title {
-      @include size(181px,44px);
+      @include size(181px, 44px);
       background-color: $black_color;
       color: $white_color;
       font-size: 24px;
@@ -185,63 +167,62 @@ export default {
       text-align: center;
       font-weight: bold;
     }
-    .chapters{
+    .chapters {
       border: 4px solid $black_color;
       min-height: calc(106px - 44px);
 
-      > .chapter,.newChapter {
+      > .chapter,
+      .newChapter {
         cursor: pointer;
         max-width: 620px;
         height: 50px;
         line-height: 50px;
         padding-left: 24px;
         margin-top: 10px;
-        transition-duration: .4s;
+        transition-duration: 0.4s;
 
-        &:hover{
+        &:hover {
           background-color: $black_color;
           color: $white_color;
         }
 
-        &:last-child{
+        &:last-child {
           margin-bottom: 10px;
         }
-
       }
 
-      .newChapter{
-        &::after{
+      .newChapter {
+        &::after {
           content: "NEW";
-          @include size(55px,18px);
+          @include size(55px, 18px);
           background-color: $black_color;
-          color:$light_green;
+          color: $light_green;
           margin-left: 20px;
           padding: 2px 5px;
           animation: 2.5s new linear infinite;
         }
       }
-
     }
   }
-
 }
-@media screen and (max-width: 450px){
-  .section{
+@media screen and (max-width: 450px) {
+  .section {
     display: flex;
     flex-direction: column;
 
-    .mainPic{
-      width: calc(414px - 80px) !important;
+    .mainPic {
+      // width: calc(414px - 80px) !important;
     }
   }
-  .chapter_menu{
-     max-width: calc(100% - 40px ) !important;
-     .chapters{
-       overflow: auto;
-       > .chapter,.newChapter {
-         width: 1000px !important;
-       }
-     }
+  .chapter_menu {
+    max-width: calc(100% - 40px) !important;
+    .chapters {
+      overflow: auto;
+      > .chapter,
+      .newChapter {
+        width: 1000px !important;
+      }
+    }
   }
 }
 </style>
