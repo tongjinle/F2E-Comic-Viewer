@@ -1,9 +1,10 @@
 <template>
 <head id="header">
-  <router-link :to="{name:'home'}" tag="div">
+  <router-link class="home-link" :to="{name:'home'}" tag="div">
     <div class="title">Tea Comic</div>
   </router-link>
   <div class="github">
+    <img src alt>
     <!-- <a href='https://github.com/runkids/F2E-Comic-Viewer' target="_blank"><i class="fab fa-github"></i></a> -->
   </div>
 </head>
@@ -24,6 +25,13 @@ export default {};
   align-items: center;
   height: 74px;
   position: relative;
+  .home-link {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .title {
     cursor: pointer;
     font-style: italic;

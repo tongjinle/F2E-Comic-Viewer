@@ -19,7 +19,7 @@ body {
   font-family: "Roboto", sans-serif;
   letter-spacing: 1px;
   color: #4c4c4c;
-  height: 100vh;
-  overflow: hidden;
+  // height: 100vh;
+  // overflow: hidden;
 }
 </style>

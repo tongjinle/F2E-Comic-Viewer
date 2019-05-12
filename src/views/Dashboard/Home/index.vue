@@ -54,7 +54,7 @@ export default {
       width: 30vw;
       // border: 4px solid $black_color;
       margin-bottom: 1vh;
-      padding: 0 10px;
+      // padding: 0 10px;
       > img {
         @include size(100%, 100%);
       }
