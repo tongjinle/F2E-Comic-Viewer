@@ -5,7 +5,8 @@
     </div>
     <div id="pages">
       <a class="prev" @click="showSlides(-1)">&#10094;</a>
-      <span>{{slideIndex+1}}/{{comicImages.length}}</span>
+      <span class="page">{{slideIndex+1}}/{{comicImages.length}}</span>
+      <span class="mark" @click="mark()">mark it</span>
       <a class="next" @click="showSlides(1)">&#10095;</a>
     </div>
   </div>
@@ -17,6 +18,7 @@ export default {
   components: {},
   data() {
     return {
+      id: "",
       switchValue: false,
       slideIndex: 0,
       comicImages: []
@@ -29,6 +31,11 @@ export default {
   },
 
   methods: {
+    async mark() {
+      let id = this.id;
+      let index = this.slideIndex;
+      await utils.setFav(id, index);
+    },
     currentSlide(n) {
       this.slideIndex = n;
       this.showSlides(0);
@@ -45,11 +52,10 @@ export default {
   },
 
   async beforeMount() {
-    let id = this.$route.query.id - 0;
-
+    let id = (this.id = this.$route.query.id);
     this.comicImages = await utils.getContent(id);
     console.log(id, this.comicImages);
-    this.slideIndex = 0;
+    this.slideIndex = this.$route.query.index || 0;
   }
 };
 </script>
@@ -73,32 +79,12 @@ export default {
     height: 100%;
   }
 }
-#gallery {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px auto;
 
-  .el-input__inner {
-    border: 2px solid black;
-    border-radius: initial;
-  }
-
-  .slides {
-    height: 100%;
-    position: relative;
-    > img {
-      height: 100%;
-      // max-height: 1000px;
-    }
-  }
-}
 #pages {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(0, 0, 0, 0.4);
   .prev,
   .next {
     cursor: pointer;
@@ -132,22 +118,20 @@ export default {
     line-height: 100px;
     background-color: rgba(0, 0, 0, 0.8);
   }
+  .page {
+    font-size: 22px;
+    color: #fff;
+  }
+  .mark {
+    font-size: 22px;
+    color: steelblue;
+  }
 }
 
 @media screen and (max-width: 450px) {
-  #gallery {
-    .utils {
-      display: none;
-    }
-
-    .slides {
-      width: 100vw;
-      overflow: hidden;
-      > img {
-        // max-width: 100vw;
-        height: 80vh;
-      }
-    }
+  .prev,
+  .next {
+    background: #000 !important;
   }
 }
 </style>

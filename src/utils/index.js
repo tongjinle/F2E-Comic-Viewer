@@ -28,7 +28,7 @@ export async function getFavList() {
 
 // 设置书签
 export async function setFav(id, index) {
-  const list = getFavList();
+  const list = await getFavList();
 
   const item = list.find(n => n.id === id);
   if (item) {
@@ -42,7 +42,7 @@ export async function setFav(id, index) {
 
 // 删除书签
 export async function removeFav(id) {
-  let list = getFavList();
+  let list = await getFavList();
   list = list.filter(n => n.id !== id);
   localStorage.setItem(FAV, JSON.stringify(list));
 }

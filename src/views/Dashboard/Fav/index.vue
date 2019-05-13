@@ -1,10 +1,11 @@
 <template>
   <div>
+    <div id="title">我的收藏列表</div>
     <div id="fav-list">
       <div class="fav-item" v-for="(item,index) in list" :key="index" @click="goto(item)">
         <div class="id">{{item.id}}</div>
-        <div class="index">{{item.index}}</div>
-        <div class="remove" @click.stop="remove(item.id)">remove</div>
+        <div class="index">第{{item.index-0+1}}页</div>
+        <div class="remove" @click.stop="remove(item.id)">删除收藏</div>
       </div>
     </div>
   </div>
@@ -23,6 +24,7 @@ export default {
   methods: {
     async remove(id) {
       await utils.removeFav(id);
+      this.list = this.list.filter(item => item.id !== id);
     },
     goto(item) {
       let { id, index } = item;
@@ -34,92 +36,45 @@ export default {
   },
 
   async beforeMount() {
-    let id = this.$route.query.id - 0;
-
-    this.comicImages = await utils.getContent(id);
-    console.log(id, this.comicImages);
-    this.slideIndex = 0;
+    this.list = await utils.getFavList();
   }
 };
 </script>
 
 <style lang="scss">
 @import "../../../assets/style/main.scss";
-
-.sun {
-  background-color: rgba(185, 178, 178, 0.1);
-}
-
-.moon {
-  background-color: rgb(0, 0, 0);
-  color: $white_color;
-}
-#pic {
-  height: 80vh;
+#title {
+  height: 40px;
   display: flex;
-  justify-content: center;
-  img {
-    height: 100%;
-  }
-}
-#gallery {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px auto;
-
-  .el-input__inner {
-    border: 2px solid black;
-    border-radius: initial;
-  }
-
-  .slides {
-    height: 100%;
-    position: relative;
-    > img {
+}
+#fav-list {
+  .fav-item {
+    display: flex;
+    height: 10vh;
+    max-height: 40px;
+    margin-bottom: 5px;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 100%;
-      // max-height: 1000px;
+      color: #fff;
     }
-  }
-}
-#pages {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .prev,
-  .next {
-    cursor: pointer;
-    width: auto;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
-    height: 30px;
-    line-height: 30px;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  .next {
-    right: 10%;
-    border-radius: 3px 0 0 3px;
-  }
-  .prev {
-    left: 10%;
-    border-radius: 3px 0 0 3px;
-  }
-  .prev:hover,
-  .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  .second {
-    position: initial;
-    height: 100px;
-    line-height: 100px;
-    background-color: rgba(0, 0, 0, 0.8);
+    .id {
+      width: 25%;
+      background: olivedrab;
+    }
+    .index {
+      flex: 1;
+      cursor: pointer;
+      background-color: gray;
+    }
+    .remove {
+      cursor: pointer;
+      width: 35%;
+      background: rgba(255, 0, 0, 0.9);
+    }
   }
 }
 
