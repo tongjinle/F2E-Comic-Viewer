@@ -16,6 +16,7 @@ const routes = [
         children: [
           { path: 'home', name: 'home', component: _import('Dashboard/Home/index') },
           { path: 'gallery', name: 'gallery', component: _import('Dashboard/Gallery/index') },
+          { path: 'fav', name: 'fav', component: _import('Dashboard/Fav/index') },
         ],
       },
     ],
