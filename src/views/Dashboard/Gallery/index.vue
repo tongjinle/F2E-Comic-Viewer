@@ -9,6 +9,9 @@
       <span class="mark" @click="mark()">mark it</span>
       <a class="next" @click="showSlides(1)">&#10095;</a>
     </div>
+    <div id="for-cache">
+      <img class="cache" v-for="(item,index) in cache" :key="index" :src="item" alt>
+    </div>
   </div>
 </template>
 
@@ -21,7 +24,9 @@ export default {
       id: "",
       switchValue: false,
       slideIndex: 0,
-      comicImages: []
+      comicImages: [],
+      cacheCount: 2,
+      cache: []
     };
   },
   computed: {
@@ -36,9 +41,15 @@ export default {
       let index = this.slideIndex;
       await utils.setFav(id, index);
     },
-    currentSlide(n) {
-      this.slideIndex = n;
-      this.showSlides(0);
+    addCache() {
+      console.log("cache imgs");
+      let index = this.slideIndex;
+      for (let i = 0; i < this.cacheCount; i++) {
+        let next = index + i;
+        if (next < this.comicImages.length) {
+          this.cache.push(this.comicImages[next]);
+        }
+      }
     },
     showSlides(index) {
       this.slideIndex += index;
@@ -48,6 +59,7 @@ export default {
           : this.slideIndex >= this.comicImages.length
           ? this.comicImages.length - 1
           : this.slideIndex;
+      this.addCache();
     }
   },
 
@@ -58,8 +70,8 @@ export default {
         return a.index - b.index;
       })
       .map(n => n.url);
-    console.log(id, this.comicImages);
     this.slideIndex = this.$route.query.index || 0;
+    this.addCache();
   }
 };
 </script>
@@ -67,13 +79,9 @@ export default {
 <style lang="scss">
 @import "../../../assets/style/main.scss";
 
-.sun {
-  background-color: rgba(185, 178, 178, 0.1);
-}
-
-.moon {
-  background-color: rgb(0, 0, 0);
-  color: $white_color;
+#for-cache {
+  width: 0;
+  height: 0;
 }
 #pic {
   height: 80vh;
