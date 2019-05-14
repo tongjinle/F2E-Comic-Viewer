@@ -49,17 +49,18 @@ export default {
 
   .section {
     display: flex;
+    flex-wrap: wrap;
     margin: 40px auto;
     justify-content: space-around;
     width: 80vw;
     .mainPic {
       // @include size(20vw, 438px);
-      width: 30vw;
+      width: 40%;
       // border: 4px solid $black_color;
       margin-bottom: 1vh;
       // padding: 0 10px;
       > img {
-        @include size(100%, 100%);
+        width: 100%;
       }
       .title {
         height: 40px;

@@ -55,7 +55,7 @@ export default {
     let id = (this.id = this.$route.query.id);
     this.comicImages = (await utils.getContent(id))
       .sort((a, b) => {
-        return b.index - a.index;
+        return a.index - b.index;
       })
       .map(n => n.url);
     console.log(id, this.comicImages);

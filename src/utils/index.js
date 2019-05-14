@@ -1,12 +1,19 @@
 import data from './data.json';
 import axios from 'axios';
 // const env = 'dev';
+// const env = 'dev-local';
 const env = 'prod';
 
-const request = axios.create({
-  baseURL: 'http://localhost:7002',
-  timeout: 1000,
-});
+let request;
+if (env === 'dev-local') {
+  request = axios.create({
+    baseURL: 'http://localhost:3000',
+  });
+} else {
+  request = axios.create({
+    baseURL: 'https://api.puman.xyz/tea/comic',
+  });
+}
 
 export async function getComicList() {
   if (env === 'dev') {
