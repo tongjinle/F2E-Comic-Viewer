@@ -53,7 +53,11 @@ export default {
 
   async beforeMount() {
     let id = (this.id = this.$route.query.id);
-    this.comicImages = await utils.getContent(id);
+    this.comicImages = (await utils.getContent(id))
+      .sort((a, b) => {
+        return b.index - a.index;
+      })
+      .map(n => n.url);
     console.log(id, this.comicImages);
     this.slideIndex = this.$route.query.index || 0;
   }

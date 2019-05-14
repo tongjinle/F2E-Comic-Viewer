@@ -2,7 +2,10 @@
   <div id="home">
     <section class="section">
       <div class="mainPic" v-for="(item, index) in list" :key="index">
-        <img :src="item.logo" @click="goto(item.id)">
+        <div class="title">
+          <span>{{item.title+' '+item.count+'页'}}</span>
+        </div>
+        <img :src="item.logo" @click="goto(item.title)">
       </div>
     </section>
   </div>
@@ -57,6 +60,17 @@ export default {
       // padding: 0 10px;
       > img {
         @include size(100%, 100%);
+      }
+      .title {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        span {
+          padding: 10px 0 10px 5px;
+          color: #fff;
+          border-radius: 5px;
+          background-color: steelblue;
+        }
       }
     }
 

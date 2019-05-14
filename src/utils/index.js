@@ -1,16 +1,36 @@
 import data from './data.json';
+import axios from 'axios';
+// const env = 'dev';
+const env = 'prod';
+
+const request = axios.create({
+  baseURL: 'http://localhost:7002',
+  timeout: 1000,
+});
 
 export async function getComicList() {
-  return data.map(n => ({
-    logo: n.logo,
-    id: n.id,
-  }));
+  if (env === 'dev') {
+    return data.map(n => ({
+      logo: n.logo,
+      id: n.id,
+    }));
+  }
+
+  // prod
+  const { data } = await request.get('/comicList');
+  console.log(data);
+  return data.code === 0 ? data.list : [];
 }
 
 export async function getContent(id) {
-  const item = data.find(n => n.id === id);
-  console.log(data, item, id);
-  return item ? item.list || [] : [];
+  if (env === 'dev') {
+    const item = data.find(n => n.id === id);
+    console.log(data, item, id);
+    return item ? item.list || [] : [];
+  }
+  // prod
+  const { data } = await request.get(`/content?title=${id}`);
+  return data.code === 0 ? data.list : [];
 }
 
 const FAV = 'fav_key';
