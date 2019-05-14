@@ -21,5 +21,8 @@ body {
   color: #4c4c4c;
   // height: 100vh;
   // overflow: hidden;
+  #app {
+    overflow: hidden;
+  }
 }
 </style>

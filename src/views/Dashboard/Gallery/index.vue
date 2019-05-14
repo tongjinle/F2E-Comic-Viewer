@@ -6,7 +6,7 @@
     <div id="pages">
       <a class="prev" @click="showSlides(-1)">&#10094;</a>
       <span class="page">{{slideIndex+1}}/{{comicImages.length}}</span>
-      <span class="mark" @click="mark()">mark it</span>
+      <span class="mark" @click="mark()">收藏</span>
       <a class="next" @click="showSlides(1)">&#10095;</a>
     </div>
     <div id="for-cache">
@@ -44,6 +44,7 @@ export default {
     addCache() {
       console.log("cache imgs");
       let index = this.slideIndex;
+      this.cache = [];
       for (let i = 0; i < this.cacheCount; i++) {
         let next = index + i;
         if (next < this.comicImages.length) {
@@ -80,8 +81,9 @@ export default {
 @import "../../../assets/style/main.scss";
 
 #for-cache {
-  width: 0;
-  height: 0;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
 }
 #pic {
   height: 80vh;
